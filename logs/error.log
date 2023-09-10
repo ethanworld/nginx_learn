@@ -1,0 +1,74 @@
+2023/08/19 15:29:07 [emerg] 28886#0: bind() to 0.0.0.0:80 failed (13: Permission denied)
+2023/08/19 15:29:48 [emerg] 29097#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2023/08/19 15:29:48 [emerg] 29097#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2023/08/19 15:29:48 [emerg] 29097#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2023/08/19 15:29:48 [emerg] 29097#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2023/08/19 15:29:48 [emerg] 29097#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+2023/08/19 15:29:48 [emerg] 29097#0: still could not bind()
+2023/08/19 15:34:43 [emerg] 30949#0: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2023/08/19 15:34:43 [emerg] 30949#0: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2023/08/19 15:34:43 [emerg] 30949#0: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2023/08/19 15:34:43 [emerg] 30949#0: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2023/08/19 15:34:43 [emerg] 30949#0: bind() to 0.0.0.0:8080 failed (98: Address already in use)
+2023/08/19 15:34:43 [emerg] 30949#0: still could not bind()
+2023/08/19 15:35:04 [emerg] 31141#0: open() "/home/ubuntu/learning/nginx-1.24.0/logs/nginx.pid" failed (13: Permission denied)
+2023/08/20 12:08:57 [emerg] 5382#0: bind() to 0.0.0.0:9999 failed (98: Address already in use)
+2023/08/20 12:08:57 [emerg] 5382#0: bind() to 0.0.0.0:9999 failed (98: Address already in use)
+2023/08/20 12:08:57 [emerg] 5382#0: bind() to 0.0.0.0:9999 failed (98: Address already in use)
+2023/08/20 12:08:57 [emerg] 5382#0: bind() to 0.0.0.0:9999 failed (98: Address already in use)
+2023/08/20 12:08:57 [emerg] 5382#0: bind() to 0.0.0.0:9999 failed (98: Address already in use)
+2023/08/20 12:08:57 [emerg] 5382#0: still could not bind()
+2023/08/20 12:12:03 [emerg] 7914#0: open() "/home/ubuntu/learning/nginx-1.24.0/logs/nginx.pid" failed (13: Permission denied)
+2023/08/20 15:35:35 [emerg] 32045#0: bind() to 0.0.0.0:9999 failed (98: Address already in use)
+2023/08/20 15:35:35 [emerg] 32045#0: bind() to 0.0.0.0:9999 failed (98: Address already in use)
+2023/08/20 15:35:35 [emerg] 32045#0: bind() to 0.0.0.0:9999 failed (98: Address already in use)
+2023/08/20 15:35:35 [emerg] 32045#0: bind() to 0.0.0.0:9999 failed (98: Address already in use)
+2023/08/20 15:35:35 [emerg] 32045#0: bind() to 0.0.0.0:9999 failed (98: Address already in use)
+2023/08/20 15:35:35 [emerg] 32045#0: still could not bind()
+2023/08/20 15:35:44 [emerg] 32122#0: bind() to 0.0.0.0:9999 failed (98: Address already in use)
+2023/08/20 15:35:44 [emerg] 32122#0: bind() to 0.0.0.0:9999 failed (98: Address already in use)
+2023/08/20 15:35:44 [emerg] 32122#0: bind() to 0.0.0.0:9999 failed (98: Address already in use)
+2023/08/20 15:35:44 [emerg] 32122#0: bind() to 0.0.0.0:9999 failed (98: Address already in use)
+2023/08/20 15:35:44 [emerg] 32122#0: bind() to 0.0.0.0:9999 failed (98: Address already in use)
+2023/08/20 15:35:44 [emerg] 32122#0: still could not bind()
+2023/08/22 21:45:25 [emerg] 3890#0: bind() to 0.0.0.0:9999 failed (98: Address already in use)
+2023/08/22 21:45:25 [emerg] 3890#0: bind() to 0.0.0.0:9999 failed (98: Address already in use)
+2023/08/22 21:45:25 [emerg] 3890#0: bind() to 0.0.0.0:9999 failed (98: Address already in use)
+2023/08/22 21:45:25 [emerg] 3890#0: bind() to 0.0.0.0:9999 failed (98: Address already in use)
+2023/08/22 21:45:25 [emerg] 3890#0: bind() to 0.0.0.0:9999 failed (98: Address already in use)
+2023/08/22 21:45:25 [emerg] 3890#0: still could not bind()
+2023/08/22 21:45:41 [emerg] 4028#0: bind() to 0.0.0.0:9999 failed (98: Address already in use)
+2023/08/22 21:45:41 [emerg] 4028#0: bind() to 0.0.0.0:9999 failed (98: Address already in use)
+2023/08/22 21:45:41 [emerg] 4028#0: bind() to 0.0.0.0:9999 failed (98: Address already in use)
+2023/08/22 21:45:41 [emerg] 4028#0: bind() to 0.0.0.0:9999 failed (98: Address already in use)
+2023/08/22 21:45:41 [emerg] 4028#0: bind() to 0.0.0.0:9999 failed (98: Address already in use)
+2023/08/22 21:45:41 [emerg] 4028#0: still could not bind()
+2023/08/22 21:48:11 [emerg] 4473#0: open() "/home/ubuntu/learning/nginx-1.24.0/logs/nginx.pid" failed (13: Permission denied)
+2023/08/22 21:52:07 [error] 6034#0: *21 "/home/ubuntu/learning/nginx-1.24.0/html/index.html" is forbidden (13: Permission denied), client: 222.212.191.154, server: localhost, request: "GET / HTTP/1.1", host: "118.89.46.72:9999"
+2023/08/22 21:52:08 [error] 6034#0: *22 open() "/home/ubuntu/learning/nginx-1.24.0/html/favicon.ico" failed (13: Permission denied), client: 222.212.191.154, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "118.89.46.72:9999", referrer: "http://118.89.46.72:9999/"
+2023/08/22 21:54:20 [error] 6034#0: *23 "/home/ubuntu/learning/nginx-1.24.0/html/index.html" is forbidden (13: Permission denied), client: 222.212.191.154, server: localhost, request: "GET / HTTP/1.1", host: "118.89.46.72:9999"
+2023/08/22 21:54:20 [error] 6034#0: *24 open() "/home/ubuntu/learning/nginx-1.24.0/html/favicon.ico" failed (13: Permission denied), client: 222.212.191.154, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "118.89.46.72:9999", referrer: "http://118.89.46.72:9999/"
+2023/08/22 21:56:54 [emerg] 7784#0: getgrnam("nobody") failed in /home/ubuntu/learning/nginx-1.24.0/conf/nginx.conf:2
+2023/08/22 21:58:51 [error] 8457#0: *1 "/home/ubuntu/learning/nginx-1.24.0/html/index.html" is forbidden (13: Permission denied), client: 222.212.191.154, server: localhost, request: "GET / HTTP/1.1", host: "118.89.46.72:9999"
+2023/08/22 21:58:51 [error] 8457#0: *2 open() "/home/ubuntu/learning/nginx-1.24.0/html/favicon.ico" failed (13: Permission denied), client: 222.212.191.154, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "118.89.46.72:9999", referrer: "http://118.89.46.72:9999/"
+2023/08/22 22:01:55 [error] 9455#0: *2 open() "/home/ubuntu/learning/nginx-1.24.0/html/favicon.ico" failed (2: No such file or directory), client: 222.212.191.154, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "118.89.46.72:9999", referrer: "http://118.89.46.72:9999/"
+2023/08/27 21:36:38 [error] 10024#0: *2 open() "/home/ubuntu/learning/nginx-1.24.0/html/favicon.ico" failed (2: No such file or directory), client: 222.212.127.52, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "118.89.46.72:9999", referrer: "http://118.89.46.72:9999/"
+2023/08/28 08:51:51 [error] 10505#0: *4 open() "/home/ubuntu/learning/nginx-1.24.0/html/favicon.ico" failed (2: No such file or directory), client: 183.136.225.31, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "118.89.46.72:9999"
+2023/08/28 08:51:51 [error] 10505#0: *5 open() "/home/ubuntu/learning/nginx-1.24.0/html/robots.txt" failed (2: No such file or directory), client: 183.136.225.31, server: localhost, request: "GET /robots.txt HTTP/1.1", host: "118.89.46.72:9999"
+2023/08/28 18:43:30 [error] 10505#0: *9 open() "/home/ubuntu/learning/nginx-1.24.0/html/echo.php" failed (2: No such file or directory), client: 103.203.57.24, server: localhost, request: "GET http://clientapi.ipip.net/echo.php?info=20230828104329 HTTP/1.1", host: "clientapi.ipip.net"
+2023/08/29 10:28:33 [error] 10505#0: *24 open() "/home/ubuntu/learning/nginx-1.24.0/html/favicon.ico" failed (2: No such file or directory), client: 183.136.225.31, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "118.89.46.72:9999"
+2023/08/29 10:28:33 [error] 10505#0: *25 open() "/home/ubuntu/learning/nginx-1.24.0/html/robots.txt" failed (2: No such file or directory), client: 183.136.225.31, server: localhost, request: "GET /robots.txt HTTP/1.1", host: "118.89.46.72:9999"
+2023/08/29 20:59:50 [error] 10505#0: *36 "/home/ubuntu/learning/nginx-1.24.0/html/admin/index.html" is not found (2: No such file or directory), client: 45.156.129.2, server: localhost, request: "GET /admin/ HTTP/1.1", host: "118.89.46.72:9999"
+2023/08/30 02:52:12 [error] 10505#0: *40 open() "/home/ubuntu/learning/nginx-1.24.0/html/aaa9" failed (2: No such file or directory), client: 161.35.190.246, server: localhost, request: "GET /aaa9 HTTP/1.1", host: "118.89.46.72:9999"
+2023/08/30 02:52:19 [error] 10505#0: *41 open() "/home/ubuntu/learning/nginx-1.24.0/html/aab8" failed (2: No such file or directory), client: 161.35.190.246, server: localhost, request: "GET /aab8 HTTP/1.1", host: "118.89.46.72:9999"
+2023/08/30 10:27:29 [error] 10505#0: *49 open() "/home/ubuntu/learning/nginx-1.24.0/html/favicon.ico" failed (2: No such file or directory), client: 106.75.21.148, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "118.89.46.72:9999"
+2023/08/30 10:27:29 [error] 10505#0: *50 open() "/home/ubuntu/learning/nginx-1.24.0/html/sitemap.xml" failed (2: No such file or directory), client: 106.75.21.148, server: localhost, request: "GET /sitemap.xml HTTP/1.1", host: "118.89.46.72:9999"
+2023/08/30 10:27:29 [error] 10505#0: *51 open() "/home/ubuntu/learning/nginx-1.24.0/html/robots.txt" failed (2: No such file or directory), client: 106.75.21.148, server: localhost, request: "GET /robots.txt HTTP/1.1", host: "118.89.46.72:9999"
+2023/08/31 05:09:03 [error] 10505#0: *73 open() "/home/ubuntu/learning/nginx-1.24.0/html/favicon.ico" failed (2: No such file or directory), client: 167.248.133.49, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "118.89.46.72:9999"
+2023/08/31 08:41:14 [error] 10505#0: *76 open() "/home/ubuntu/learning/nginx-1.24.0/html/_cat" failed (2: No such file or directory), client: 141.98.11.132, server: localhost, request: "GET /_cat HTTP/1.1", host: "118.89.46.72:9999"
+2023/09/01 06:28:37 [error] 10505#0: *99 open() "/home/ubuntu/learning/nginx-1.24.0/html/favicon.ico" failed (2: No such file or directory), client: 167.94.138.127, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "118.89.46.72:9999"
+2023/09/02 00:44:40 [error] 10505#0: *120 open() "/home/ubuntu/learning/nginx-1.24.0/html/favicon.ico" failed (2: No such file or directory), client: 183.136.225.31, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "118.89.46.72:9999"
+2023/09/02 00:44:40 [error] 10505#0: *121 open() "/home/ubuntu/learning/nginx-1.24.0/html/robots.txt" failed (2: No such file or directory), client: 183.136.225.31, server: localhost, request: "GET /robots.txt HTTP/1.1", host: "118.89.46.72:9999"
+2023/09/02 04:53:36 [error] 10505#0: *124 open() "/home/ubuntu/learning/nginx-1.24.0/html/ping.js" failed (2: No such file or directory), client: 89.248.164.165, server: localhost, request: "GET http://pingjs.qq.com/ping.js HTTP/1.1", host: "pingjs.qq.com"
+2023/09/02 05:58:24 [error] 10505#0: *134 open() "/home/ubuntu/learning/nginx-1.24.0/html/favicon.ico" failed (2: No such file or directory), client: 167.94.138.50, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "118.89.46.72:9999"
+2023/09/02 14:15:56 [error] 10505#0: *145 open() "/home/ubuntu/learning/nginx-1.24.0/html/favicon.ico" failed (2: No such file or directory), client: 65.49.20.66, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "118.89.46.72:9999"
