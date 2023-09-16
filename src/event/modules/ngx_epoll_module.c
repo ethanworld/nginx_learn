@@ -327,6 +327,7 @@ ngx_epoll_init(ngx_cycle_t *cycle, ngx_msec_t timer)
     epcf = ngx_event_get_conf(cycle->conf_ctx, ngx_epoll_module);
 
     if (ep == -1) {
+        // 创建epoll句柄，size参数用于告诉linux内核监听的socket数目，从linux2.6.8开始采用红黑树结构，该参数将被忽略，不限制大小，这里主要是兼容旧版本
         ep = epoll_create(cycle->connection_n / 2);
 
         if (ep == -1) {
@@ -586,7 +587,7 @@ ngx_epoll_add_event(ngx_event_t *ev, ngx_int_t event, ngx_uint_t flags)
 
     c = ev->data;
 
-    events = (uint32_t) event;
+    events = (uint32_t) event; // 外部传入，例如：NGX_READ_EVENT
 
     if (event == NGX_READ_EVENT) {
         e = c->write;
@@ -624,6 +625,11 @@ ngx_epoll_add_event(ngx_event_t *ev, ngx_int_t event, ngx_uint_t flags)
                    "epoll add event: fd:%d op:%d ev:%08XD",
                    c->fd, op, ee.events);
 
+    // 事件注册函数，向epoll中添加、修好或者删除某个socket对应的监听事件
+    // ep为epoll_create创建的epoll文件描述符
+    // op表示监听动作类型：EPOLL_CTL_ADD/MOD/DEL分别表示添加新的fd到epoll中、修改已注册的fd、删除epoll中的fd
+    // c->fd：表示需要监听的socket描述符
+    // &ee：类型为epoll_event，表示告诉epoll要监听该socket的什么类型事件，例如可读、可写
     if (epoll_ctl(ep, op, c->fd, &ee) == -1) {
         ngx_log_error(NGX_LOG_ALERT, ev->log, ngx_errno,
                       "epoll_ctl(%d, %d) failed", op, c->fd);
@@ -794,9 +800,14 @@ ngx_epoll_process_events(ngx_cycle_t *cycle, ngx_msec_t timer, ngx_uint_t flags)
 
     /* NGX_TIMER_INFINITE == INFTIM */
 
+    printf("ngx_epoll_process_events: timer=%ld\n", timer);
     ngx_log_debug1(NGX_LOG_DEBUG_EVENT, cycle->log, 0,
                    "epoll timer: %M", timer);
 
+    // ep：epoll句柄文件描述符
+    // event_list：提前申请好epoll_event数组内存，epoll会把IO准备就绪的socket关联的epoll_event数据复制到event_list数组中
+    // nevents:本次可以返回的最大事件个数，该参与通常与epoll_event预分配数组大小相等，即event_list按nevents进行malloc申请内存
+    // timer：调试socket事件未发生时最长等待的时间，单位为ms，如果为0，立即返回，不会等待，如果
     events = epoll_wait(ep, event_list, (int) nevents, timer);
 
     err = (events == -1) ? ngx_errno : 0;
