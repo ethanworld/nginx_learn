@@ -776,8 +776,8 @@ ngx_event_process_init(ngx_cycle_t *cycle)
         i--;
         // cycle->connections即是数组，也自身构成单链表
         c[i].data = next;
-        c[i].read = &cycle->read_events[i];
-        c[i].write = &cycle->write_events[i];
+        c[i].read = &cycle->read_events[i]; // ngx_connection_t->read与read_events中的ngx_event_t一一对应
+        c[i].write = &cycle->write_events[i]; // ngx_connection_t->write与write_events中的ngx_event_t一一对应
         c[i].fd = (ngx_socket_t) -1;
 
         next = &c[i];
@@ -882,7 +882,7 @@ ngx_event_process_init(ngx_cycle_t *cycle)
 
 #else
         
-        // 给listen_fd读事件配置回调函数，即建立连接时间达到时的处理函数
+        // 给listen_fd读事件配置回调函数，即建立连接时间达到时的处理函数，读事件的回调处理配置为ngx_event_accept
         rev->handler = (c->type == SOCK_STREAM) ? ngx_event_accept
                                                 : ngx_event_recvmsg;
 

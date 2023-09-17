@@ -1,0 +1,3 @@
+./configure  --prefix=/home/ubuntu/learning/nginx-1.24.0
+sudo make
+sudo gdbserver localhost:2333 ./objs/nginx

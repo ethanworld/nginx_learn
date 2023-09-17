@@ -585,7 +585,7 @@ ngx_epoll_add_event(ngx_event_t *ev, ngx_int_t event, ngx_uint_t flags)
     ngx_connection_t    *c;
     struct epoll_event   ee;
 
-    c = ev->data;
+    c = ev->data; // ngx_event_t不论是读事件还是写事件，其data字段记录该事件一一对应的ngx_connection_s，具体可见ngx_get_connection函数实现
 
     events = (uint32_t) event; // 外部传入，例如：NGX_READ_EVENT
 
@@ -619,6 +619,7 @@ ngx_epoll_add_event(ngx_event_t *ev, ngx_int_t event, ngx_uint_t flags)
 #endif
 
     ee.events = events | (uint32_t) flags;
+    // data为自定义内容，这里记录ptr字段为ngx_event_t->data，内容为该事件对应的ngx_connection_t，在epoll_wait时会解析ptr
     ee.data.ptr = (void *) ((uintptr_t) c | ev->instance);
 
     ngx_log_debug3(NGX_LOG_DEBUG_EVENT, ev->log, 0,
@@ -909,6 +910,7 @@ ngx_epoll_process_events(ngx_cycle_t *cycle, ngx_msec_t timer, ngx_uint_t flags)
                 ngx_post_event(rev, queue);
 
             } else {
+                // 走读事件的回调处理
                 rev->handler(rev);
             }
         }
@@ -938,6 +940,7 @@ ngx_epoll_process_events(ngx_cycle_t *cycle, ngx_msec_t timer, ngx_uint_t flags)
                 ngx_post_event(wev, &ngx_posted_events);
 
             } else {
+                // 走写事件的回调处理
                 wev->handler(wev);
             }
         }

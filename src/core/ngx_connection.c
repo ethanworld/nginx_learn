@@ -1112,6 +1112,7 @@ ngx_get_connection(ngx_socket_t s, ngx_log_t *log)
 
     ngx_drain_connections((ngx_cycle_t *) ngx_cycle);
 
+    // 从连接池中取一个新的ngx_connection_t
     c = ngx_cycle->free_connections;
 
     if (c == NULL) {
@@ -1122,6 +1123,7 @@ ngx_get_connection(ngx_socket_t s, ngx_log_t *log)
         return NULL;
     }
 
+    // 空闲连接指针指向空链表的下一个
     ngx_cycle->free_connections = c->data;
     ngx_cycle->free_connection_n--;
 
@@ -1150,8 +1152,8 @@ ngx_get_connection(ngx_socket_t s, ngx_log_t *log)
     rev->index = NGX_INVALID_INDEX;
     wev->index = NGX_INVALID_INDEX;
 
-    rev->data = c;
-    wev->data = c;
+    rev->data = c; // ngx_connection_t->read(ngx_event_t)->data字段指向ngx_connection_t自身，用于在epoll_ctl时记录在ptr中，在epoll_wait时从ptr从解析出gx_connection_t
+    wev->data = c; // ngx_connection_t->write(ngx_event_t)->data字段指向ngx_connection_t自身
 
     wev->write = 1;
 
