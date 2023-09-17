@@ -183,3 +183,5 @@
 167.94.146.52 - - [10/Sep/2023:11:45:11 +0800] "PRI * HTTP/2.0" 400 157 "-" "-"
 171.67.71.80 - - [10/Sep/2023:14:19:21 +0800] "GET / HTTP/1.1" 200 615 "-" "Mozilla/5.0 zgrab/0.x"
 171.221.136.191 - - [10/Sep/2023:15:21:18 +0800] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"
+171.221.141.133 - - [17/Sep/2023:10:57:30 +0800] "GET /favicon.ico HTTP/1.1" 404 555 "http://118.89.46.72:9999/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"
+171.221.141.133 - - [17/Sep/2023:11:00:28 +0800] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"

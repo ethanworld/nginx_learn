@@ -41,7 +41,7 @@ sig_atomic_t          ngx_event_timer_alarm;
 static ngx_uint_t     ngx_event_max_module;
 
 ngx_uint_t            ngx_event_flags;
-ngx_event_actions_t   ngx_event_actions;
+ngx_event_actions_t   ngx_event_actions; // 在ngx_epoll_init中被赋值为ngx_epoll_module_ctx.actions;
 
 
 static ngx_atomic_t   connection_counter = 1;
@@ -668,7 +668,8 @@ ngx_event_process_init(ngx_cycle_t *cycle)
         }
 
         module = cycle->modules[m]->ctx;
-
+        
+        // 调用epoll模块的init初始化函数：ngx_epoll_init
         if (module->actions.init(cycle, ngx_timer_resolution) != NGX_OK) {
             /* fatal */
             exit(2);
@@ -733,6 +734,7 @@ ngx_event_process_init(ngx_cycle_t *cycle)
 
 #endif
 
+    // 初始化连接池，大小由配置参数worker_connnections决定，默认为512
     cycle->connections =
         ngx_alloc(sizeof(ngx_connection_t) * cycle->connection_n, cycle->log);
     if (cycle->connections == NULL) {
@@ -740,7 +742,8 @@ ngx_event_process_init(ngx_cycle_t *cycle)
     }
 
     c = cycle->connections;
-
+    
+    // 初始化与连接池大小对应的读事件池
     cycle->read_events = ngx_alloc(sizeof(ngx_event_t) * cycle->connection_n,
                                    cycle->log);
     if (cycle->read_events == NULL) {
@@ -749,10 +752,11 @@ ngx_event_process_init(ngx_cycle_t *cycle)
 
     rev = cycle->read_events;
     for (i = 0; i < cycle->connection_n; i++) {
-        rev[i].closed = 1;
-        rev[i].instance = 1;
+        rev[i].closed = 1; // 初始化为1，代表未使用
+        rev[i].instance = 1; // 初始化为1，用于检测该结构体是否可用
     }
 
+    // 初始化与连接池大小对应的写事件池
     cycle->write_events = ngx_alloc(sizeof(ngx_event_t) * cycle->connection_n,
                                     cycle->log);
     if (cycle->write_events == NULL) {
@@ -761,15 +765,16 @@ ngx_event_process_init(ngx_cycle_t *cycle)
 
     wev = cycle->write_events;
     for (i = 0; i < cycle->connection_n; i++) {
-        wev[i].closed = 1;
+        wev[i].closed = 1; // 初始化为1，代表未使用
     }
 
     i = cycle->connection_n;
     next = NULL;
 
+    // 读、写事件结构体与connections结构体一一对应
     do {
         i--;
-
+        // cycle->connections即是数组，也自身构成单链表
         c[i].data = next;
         c[i].read = &cycle->read_events[i];
         c[i].write = &cycle->write_events[i];
@@ -778,11 +783,13 @@ ngx_event_process_init(ngx_cycle_t *cycle)
         next = &c[i];
     } while (i);
 
+    // 初始化free_connections，指向连接池头部
     cycle->free_connections = next;
     cycle->free_connection_n = cycle->connection_n;
 
-    /* for each listening socket */
 
+    // 为每个监听端口分配连接，端口监听是在之前的ngx_open_listening_sockets阶段中完成构造
+    /* for each listening socket */
     ls = cycle->listening.elts;
     for (i = 0; i < cycle->listening.nelts; i++) {
 
@@ -792,6 +799,7 @@ ngx_event_process_init(ngx_cycle_t *cycle)
         }
 #endif
 
+        // 给每个listen_fd分配对应的连接
         c = ngx_get_connection(ls[i].fd, cycle->log);
 
         if (c == NULL) {
@@ -801,6 +809,7 @@ ngx_event_process_init(ngx_cycle_t *cycle)
         c->type = ls[i].type;
         c->log = &ls[i].log;
 
+        // 连接与监听相互关联指针
         c->listening = &ls[i];
         ls[i].connection = c;
 
@@ -872,7 +881,8 @@ ngx_event_process_init(ngx_cycle_t *cycle)
         }
 
 #else
-
+        
+        // 给listen_fd读事件配置回调函数，即建立连接时间达到时的处理函数
         rev->handler = (c->type == SOCK_STREAM) ? ngx_event_accept
                                                 : ngx_event_recvmsg;
 

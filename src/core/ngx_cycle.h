@@ -46,18 +46,18 @@ struct ngx_cycle_s {
     ngx_uint_t                log_use_stderr;  /* unsigned  log_use_stderr:1; */
 
     ngx_connection_t        **files;
-    ngx_connection_t         *free_connections;
-    ngx_uint_t                free_connection_n;
+    ngx_connection_t         *free_connections; // 指向可使用的连接，连接池由单链表构成，该字段指向空闲连接池的队首，每个已用链接在释放时会通过头插法插入此空闲连接池指向的单链表
+    ngx_uint_t                free_connection_n; // 可使用的连接总数
 
     ngx_module_t            **modules;
     ngx_uint_t                modules_n;
     ngx_uint_t                modules_used;    /* unsigned  modules_used:1; */
 
-    ngx_queue_t               reusable_connections_queue;
-    ngx_uint_t                reusable_connections_n;
+    ngx_queue_t               reusable_connections_queue; // 可被抢占的连接
+    ngx_uint_t                reusable_connections_n; // 可被抢占的连接总数
     time_t                    connections_reuse_time;
 
-    ngx_array_t               listening;
+    ngx_array_t               listening; // 监听池：触发所有的监听fd
     ngx_array_t               paths;
 
     ngx_array_t               config_dump;
@@ -67,12 +67,12 @@ struct ngx_cycle_s {
     ngx_list_t                open_files;
     ngx_list_t                shared_memory;
 
-    ngx_uint_t                connection_n;
+    ngx_uint_t                connection_n; // 连接池总大小
     ngx_uint_t                files_n;
 
-    ngx_connection_t         *connections;
-    ngx_event_t              *read_events;
-    ngx_event_t              *write_events;
+    ngx_connection_t         *connections; // 连接池：存储管理各类socket_fd
+    ngx_event_t              *read_events; // 读事件池，对应连接池中每个socket_fd触发的可读事件
+    ngx_event_t              *write_events; // 写事件池，对应连接池中每个socket_fd触发的可写事件
 
     ngx_cycle_t              *old_cycle;
 

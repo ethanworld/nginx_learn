@@ -124,14 +124,14 @@ struct ngx_connection_s {
     ngx_event_t        *read;
     ngx_event_t        *write;
 
-    ngx_socket_t        fd;
+    ngx_socket_t        fd; // socket_fd，可为：upstream_connect_fd、downstream_connect_fd、listen_fd、channel_fd
 
     ngx_recv_pt         recv;
     ngx_send_pt         send;
     ngx_recv_chain_pt   recv_chain;
     ngx_send_chain_pt   send_chain;
 
-    ngx_listening_t    *listening;
+    ngx_listening_t    *listening; // 当fd监听的是listen_fd时，该字段指向ngx_listening_s结构体，与ngx_listening_t指针互相指向，便于使用
 
     off_t               sent;
 

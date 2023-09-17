@@ -231,15 +231,15 @@ struct ngx_module_s {
     ngx_uint_t            version;
     const char           *signature;
 
-    void                 *ctx;
-    ngx_command_t        *commands;
-    ngx_uint_t            type;
+    void                 *ctx; // 模块内自定义的结构体，一般是ngx_core_module_t结构体或在其基础上增改的结构体：当前模块再进行泛化做差异化处理，例如event模块下有epoll/select/poll等子模块，除该字段外的其他字段都是泛化的共性处理
+    ngx_command_t        *commands; // 模块配置命令及对应的回调函数
+    ngx_uint_t            type; // 模块类型：NGX_CORE_MODULE、NGX_EVENT_MODULE
 
-    ngx_int_t           (*init_master)(ngx_log_t *log);
+    ngx_int_t           (*init_master)(ngx_log_t *log); // master阶段执行函数
 
-    ngx_int_t           (*init_module)(ngx_cycle_t *cycle);
-
-    ngx_int_t           (*init_process)(ngx_cycle_t *cycle);
+    ngx_int_t           (*init_module)(ngx_cycle_t *cycle); // master进程阶段执行函数
+ 
+    ngx_int_t           (*init_process)(ngx_cycle_t *cycle); // proccess进程阶段执行函数
     ngx_int_t           (*init_thread)(ngx_cycle_t *cycle);
     void                (*exit_thread)(ngx_cycle_t *cycle);
     void                (*exit_process)(ngx_cycle_t *cycle);
@@ -258,10 +258,10 @@ struct ngx_module_s {
 
 
 typedef struct {
-    ngx_str_t             name;
-    void               *(*create_conf)(ngx_cycle_t *cycle);
-    char               *(*init_conf)(ngx_cycle_t *cycle, void *conf);
-} ngx_core_module_t;
+    ngx_str_t             name; // 模块具体的名字
+    void               *(*create_conf)(ngx_cycle_t *cycle); // 初始化配置所需关联的结构体，将这些关联的结构体存入cycle->conf_ctx数组中
+    char               *(*init_conf)(ngx_cycle_t *cycle, void *conf); // 解析配置，并将解析出来的配置写入cycle->conf_ctx数组中
+} ngx_core_module_t; // 模块自定义结构体，一般各个模块会在此基础中继承扩展，与ngx_module_s作用差别在于，其主要负责具体模块的配置初始化
 
 
 ngx_int_t ngx_preinit_modules(void);

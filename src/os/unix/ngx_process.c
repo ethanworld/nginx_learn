@@ -33,7 +33,7 @@ char           **ngx_os_argv;
 ngx_int_t        ngx_process_slot;
 ngx_socket_t     ngx_channel;
 ngx_int_t        ngx_last_process;
-ngx_process_t    ngx_processes[NGX_MAX_PROCESSES];
+ngx_process_t    ngx_processes[NGX_MAX_PROCESSES]; // 进程池：每个进程与父进程之间通过channel_fd保持通信，同时这些ychannel_fd也会注册到连接池中
 
 
 ngx_signal_t  signals[] = {

@@ -5,6 +5,7 @@
     "string_view": "c",
     "sstream": "c",
     "initializer_list": "c",
-    "utility": "c"
+    "utility": "c",
+    "ngx_core.h": "c"
   }
 }

@@ -76,3 +76,4 @@
 2023/09/10 10:34:39 [emerg] 24263#0: open() "/home/ubuntu/learning/nginx-1.24.0/logs/nginx.pid" failed (13: Permission denied)
 2023/09/10 10:43:08 [error] 27073#0: *1 open() "/home/ubuntu/learning/nginx-1.24.0/html/favicon.ico" failed (2: No such file or directory), client: 171.221.136.191, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "118.89.46.72:9999", referrer: "http://118.89.46.72:9999/"
 2023/09/10 11:45:11 [error] 27073#0: *10 open() "/home/ubuntu/learning/nginx-1.24.0/html/favicon.ico" failed (2: No such file or directory), client: 167.94.146.52, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "118.89.46.72:9999"
+2023/09/17 10:57:30 [error] 19663#0: *1 open() "/home/ubuntu/learning/nginx-1.24.0/html/favicon.ico" failed (2: No such file or directory), client: 171.221.141.133, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "118.89.46.72:9999", referrer: "http://118.89.46.72:9999/"

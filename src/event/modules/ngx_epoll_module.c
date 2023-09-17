@@ -182,7 +182,7 @@ static ngx_event_module_t  ngx_epoll_module_ctx = {
     ngx_epoll_init_conf,                 /* init configuration */
 
     {
-        ngx_epoll_add_event,             /* add an event */
+        ngx_epoll_add_event,             /* add an event：通过epoll_ctl将对应fd条件到epoll中监听 */
         ngx_epoll_del_event,             /* delete an event */
         ngx_epoll_add_event,             /* enable an event */
         ngx_epoll_del_event,             /* disable an event */
@@ -194,7 +194,7 @@ static ngx_event_module_t  ngx_epoll_module_ctx = {
         NULL,                            /* trigger a notify */
 #endif
         ngx_epoll_process_events,        /* process the events */
-        ngx_epoll_init,                  /* init the events */
+        ngx_epoll_init,                  /* init the events：调用epoll_create创建epoll_fd */
         ngx_epoll_done,                  /* done the events */
     }
 };

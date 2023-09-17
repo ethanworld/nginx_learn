@@ -30,12 +30,12 @@ typedef struct {
 struct ngx_event_s {
     void            *data;
 
-    unsigned         write:1;
+    unsigned         write:1; // 用于标识事件，值为1表示写事件，默认表示读事件
 
-    unsigned         accept:1;
+    unsigned         accept:1; // 用于标识是accept_fd事件（listen_fd触发）还是posted事件，值为1表示accpet事件。当handler字段为ngx_event_accept时，该字段为默认值0
 
     /* used to detect the stale events in kqueue and epoll */
-    unsigned         instance:1;
+    unsigned         instance:1; // 用于检测事件是否为陈旧事件
 
     /*
      * the event was passed or would be passed to a kernel;
@@ -100,7 +100,7 @@ struct ngx_event_s {
 
     int              available;
 
-    ngx_event_handler_pt  handler;
+    ngx_event_handler_pt  handler; // 用于设置该事件的回调函数，当事件触发后，会回调该函数来处理事件。事件处于不同类型或不同阶段时，handler字段的值会改变
 
 
 #if (NGX_HAVE_IOCP)
