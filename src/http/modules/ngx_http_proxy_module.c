@@ -942,6 +942,7 @@ ngx_http_proxy_handler(ngx_http_request_t *r)
     ngx_http_proxy_main_conf_t  *pmcf;
 #endif
 
+    // 第一步：创建ngx_http_upstream_t结构体
     if (ngx_http_upstream_create(r) != NGX_OK) {
         return NGX_HTTP_INTERNAL_SERVER_ERROR;
     }
@@ -981,9 +982,10 @@ ngx_http_proxy_handler(ngx_http_request_t *r)
     u->create_key = ngx_http_proxy_create_key;
 #endif
 
-    u->create_request = ngx_http_proxy_create_request;
+    // 第二步：设置Upstream处理各类事件的回调函数
+    u->create_request = ngx_http_proxy_create_request; // 用于创建发送到上游服务器的请求
     u->reinit_request = ngx_http_proxy_reinit_request;
-    u->process_header = ngx_http_proxy_process_status_line;
+    u->process_header = ngx_http_proxy_process_status_line; // 用于处理上游服务器返回的响应头
     u->abort_request = ngx_http_proxy_abort_request;
     u->finalize_request = ngx_http_proxy_finalize_request;
     r->state = 0;
@@ -1020,6 +1022,7 @@ ngx_http_proxy_handler(ngx_http_request_t *r)
         r->request_body_no_buffering = 1;
     }
 
+    // 第三步：读取用户发送的请求体并初始化Upstream
     rc = ngx_http_read_client_request_body(r, ngx_http_upstream_init);
 
     if (rc >= NGX_HTTP_SPECIAL_RESPONSE) {
@@ -1813,7 +1816,7 @@ ngx_http_proxy_process_status_line(ngx_http_request_t *r)
     }
 
     u = r->upstream;
-
+    // 解析HTTP状态行
     rc = ngx_http_parse_status_line(r, &u->buffer, &ctx->status);
 
     if (rc == NGX_AGAIN) {
@@ -1870,9 +1873,9 @@ ngx_http_proxy_process_status_line(ngx_http_request_t *r)
     if (ctx->status.http_version < NGX_HTTP_VERSION_11) {
         u->headers_in.connection_close = 1;
     }
-
+    // HTTP状态行处理完成，可以继续解析HTTP头部，设置回调函数
     u->process_header = ngx_http_proxy_process_header;
-
+    // 后续处理HTTP响应头部
     return ngx_http_proxy_process_header(r);
 }
 

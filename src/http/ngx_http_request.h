@@ -391,7 +391,7 @@ struct ngx_http_request_s {
     ngx_http_cache_t                 *cache;
 #endif
 
-    ngx_http_upstream_t              *upstream;
+    ngx_http_upstream_t              *upstream; // 当对应请求需要启用upstream机制的时候，需要设置该字段，否则设为NULL
     ngx_array_t                      *upstream_states;
                                          /* of ngx_http_upstream_state_t */
 

@@ -29,7 +29,7 @@ ngx_event_pipe(ngx_event_pipe_t *p, ngx_int_t do_write)
     for ( ;; ) {
         if (do_write) {
             p->log->action = "sending to client";
-
+            // 将上游响应体发给客户端
             rc = ngx_event_pipe_write_to_downstream(p);
 
             if (rc == NGX_ABORT) {
@@ -45,7 +45,7 @@ ngx_event_pipe(ngx_event_pipe_t *p, ngx_int_t do_write)
         p->upstream_blocked = 0;
 
         p->log->action = "reading upstream";
-
+        // 继续读取上游响应体内容
         if (ngx_event_pipe_read_upstream(p) == NGX_ABORT) {
             return NGX_ABORT;
         }

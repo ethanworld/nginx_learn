@@ -488,7 +488,7 @@ ngx_http_upstream_create(ngx_http_request_t *r)
         return NGX_ERROR;
     }
 
-    r->upstream = u;
+    r->upstream = u; // 将新创建的upstream结构体注册到请求ngx_http_request_t中
 
     u->peer.log = r->connection->log;
     u->peer.log_error = NGX_ERROR_ERR;
@@ -624,6 +624,7 @@ ngx_http_upstream_init_request(ngx_http_request_t *r)
         u->request_bufs = r->request_body->bufs;
     }
 
+    // 创建需要发送给上游的请求
     if (u->create_request(r) != NGX_OK) {
         ngx_http_finalize_request(r, NGX_HTTP_INTERNAL_SERVER_ERROR);
         return;
@@ -795,6 +796,7 @@ found:
     u->ssl_name = uscf->host;
 #endif
 
+    // 初始化上游连接，默认情况下是ngx_http_upstream_init_round_robin_peer
     if (uscf->peer.init(r, uscf) != NGX_OK) {
         ngx_http_upstream_finalize_request(r, u,
                                            NGX_HTTP_INTERNAL_SERVER_ERROR);
@@ -809,6 +811,7 @@ found:
         u->peer.tries = u->conf->next_upstream_tries;
     }
 
+    // 与上游服务器建立连接
     ngx_http_upstream_connect(r, u);
 }
 
@@ -1532,6 +1535,7 @@ ngx_http_upstream_connect(ngx_http_request_t *r, ngx_http_upstream_t *u)
     u->state->connect_time = (ngx_msec_t) -1;
     u->state->header_time = (ngx_msec_t) -1;
 
+    // 与上游服务器建立连接
     rc = ngx_event_connect_peer(&u->peer);
 
     ngx_log_debug1(NGX_LOG_DEBUG_HTTP, r->connection->log, 0,
@@ -1564,6 +1568,7 @@ ngx_http_upstream_connect(ngx_http_request_t *r, ngx_http_upstream_t *u)
 
     c->data = r;
 
+    // 设置上游服务器的回调函数
     c->write->handler = ngx_http_upstream_handler;
     c->read->handler = ngx_http_upstream_handler;
 
@@ -2077,7 +2082,7 @@ ngx_http_upstream_send_request(ngx_http_request_t *r, ngx_http_upstream_t *u,
     }
 
     c->log->action = "sending request to upstream";
-
+    // 发送请求到上游服务器
     rc = ngx_http_upstream_send_request_body(r, u, do_write);
 
     if (rc == NGX_ERROR) {
@@ -2179,7 +2184,7 @@ ngx_http_upstream_send_request_body(ngx_http_request_t *r,
 
     ngx_log_debug0(NGX_LOG_DEBUG_HTTP, r->connection->log, 0,
                    "http upstream send request body");
-
+    // 需要读取完整的用户请求体，再发给上游服务器
     if (!r->request_body_no_buffering) {
 
         /* buffered request body */
@@ -2203,7 +2208,7 @@ ngx_http_upstream_send_request_body(ngx_http_request_t *r,
 
         return rc;
     }
-
+    // 边接收用户请求体，边转发给上游服务器
     if (!u->request_sent) {
         u->request_sent = 1;
         out = u->request_bufs;
@@ -2226,9 +2231,9 @@ ngx_http_upstream_send_request_body(ngx_http_request_t *r,
     } else {
         out = NULL;
     }
-
+    // 边读取用户请求体，边转发给上游请求体
     for ( ;; ) {
-
+        // 将请求体发给上游服务器
         if (do_write) {
             rc = ngx_output_chain(&u->output, out);
 
@@ -2253,7 +2258,7 @@ ngx_http_upstream_send_request_body(ngx_http_request_t *r,
                 break;
             }
         }
-
+        // 读取用户请求体
         if (r->reading_body) {
             /* read client request body */
 
@@ -2370,7 +2375,7 @@ ngx_http_upstream_process_header(ngx_http_request_t *r, ngx_http_upstream_t *u)
         ngx_http_upstream_next(r, u, NGX_HTTP_UPSTREAM_FT_ERROR);
         return;
     }
-
+    // u->buffer用于存储上游返回的响应头部
     if (u->buffer.start == NULL) {
         u->buffer.start = ngx_palloc(r->pool, u->conf->buffer_size);
         if (u->buffer.start == NULL) {
@@ -2413,8 +2418,9 @@ ngx_http_upstream_process_header(ngx_http_request_t *r, ngx_http_upstream_t *u)
 #endif
     }
 
+    // 读取上游响应头数据，并调用响应头处理函数
     for ( ;; ) {
-
+        // 读取到上游返回的数据
         n = c->recv(c, u->buffer.last, u->buffer.end - u->buffer.last);
 
         if (n == NGX_AGAIN) {
@@ -2451,6 +2457,7 @@ ngx_http_upstream_process_header(ngx_http_request_t *r, ngx_http_upstream_t *u)
         u->peer.cached = 0;
 #endif
 
+        // 调用上游响应头处理函数
         rc = u->process_header(r);
 
         if (rc == NGX_AGAIN) {
@@ -2496,10 +2503,12 @@ ngx_http_upstream_process_header(ngx_http_request_t *r, ngx_http_upstream_t *u)
         }
     }
 
+    // 成功读取上游响应头数据
     if (ngx_http_upstream_process_headers(r, u) != NGX_OK) {
         return;
     }
 
+    // 将上游服务器返回的结果转发给客户端
     ngx_http_upstream_send_response(r, u);
 }
 
@@ -2998,7 +3007,7 @@ ngx_http_upstream_send_response(ngx_http_request_t *r, ngx_http_upstream_t *u)
     ngx_event_pipe_t          *p;
     ngx_connection_t          *c;
     ngx_http_core_loc_conf_t  *clcf;
-
+    // 先处理待发送给客户端的请求头
     rc = ngx_http_send_header(r);
 
     if (rc == NGX_ERROR || rc > NGX_OK || r->post_action) {
@@ -3328,7 +3337,7 @@ ngx_http_upstream_send_response(ngx_http_request_t *r, ngx_http_upstream_t *u)
 
     u->read_event_handler = ngx_http_upstream_process_upstream;
     r->write_event_handler = ngx_http_upstream_process_downstream;
-
+    // 初始ngx_event_pipe_t后，处理上游响应体
     ngx_http_upstream_process_upstream(r, u);
 }
 
@@ -4087,7 +4096,7 @@ ngx_http_upstream_process_upstream(ngx_http_request_t *r,
 
             return;
         }
-
+        // 读取上游响应体并转发给客户端
         if (ngx_event_pipe(p, 0) == NGX_ABORT) {
             ngx_http_upstream_finalize_request(r, u, NGX_ERROR);
             return;
@@ -4178,7 +4187,7 @@ ngx_http_upstream_process_request(ngx_http_request_t *r,
         if (p->upstream_done || p->upstream_eof || p->upstream_error) {
             ngx_log_debug1(NGX_LOG_DEBUG_HTTP, r->connection->log, 0,
                            "http upstream exit: %p", p->out);
-
+            // 接收到完整的请求或者上游服务器关闭连接或者接受数据有误
             if (p->upstream_done
                 || (p->upstream_eof && p->length == -1))
             {
@@ -4500,14 +4509,14 @@ ngx_http_upstream_finalize_request(ngx_http_request_t *r,
             u->state->bytes_sent = u->peer.connection->sent;
         }
     }
-
+    // 结束上游请求，回调ngx_http_proxy_finalize_request
     u->finalize_request(r, rc);
-
+    // 释放上游连接：ngx_http_upstream_free_round_robin_peer
     if (u->peer.free && u->peer.sockaddr) {
         u->peer.free(&u->peer, u->peer.data, 0);
         u->peer.sockaddr = NULL;
     }
-
+    // 关闭上游TCP连接，释放内存池
     if (u->peer.connection) {
 
 #if (NGX_HTTP_SSL)
@@ -4581,7 +4590,7 @@ ngx_http_upstream_finalize_request(ngx_http_request_t *r,
     }
 
 #endif
-
+    // 上游服务器已经关闭，不再继续读取客户端发送的数据
     r->read_event_handler = ngx_http_block_reading;
 
     if (rc == NGX_DECLINED) {

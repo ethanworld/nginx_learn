@@ -1258,6 +1258,7 @@ ngx_http_core_content_phase(ngx_http_request_t *r,
 
     if (r->content_handler) {
         r->write_event_handler = ngx_http_request_empty_handler;
+        // 对于proxy_pass，content_handler就是ngx_http_proxy_handler函数
         ngx_http_finalize_request(r, r->content_handler(r));
         return NGX_OK;
     }
