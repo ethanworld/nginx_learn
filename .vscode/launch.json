@@ -12,7 +12,7 @@
       "linux": {
         "MIMode": "gdb",
         "miDebuggerPath": "/usr/bin/gdb",
-        "miDebuggerServerAddress": "118.89.46.72:2333"
+        "miDebuggerServerAddress": "127.0.0.1:2333"
       },
       "environment": [],
       "externalConsole": true,

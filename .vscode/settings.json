@@ -7,5 +7,180 @@
     "initializer_list": "c",
     "utility": "c",
     "ngx_core.h": "c"
-  }
+  },
+  "workbench.colortheme": "default dark+",
+  "window.restorewindows": "none",
+  "explorer.confirmdelete": false,
+  "window.openfoldersinnewwindow": "on",
+  "code-runner.runinterminal": true,
+  "workbench.editor.enablepreview": false,
+  "security.workspace.trust.untrustedfiles": "open",
+  "editor.codeactionsonsave": {},
+  "vim.leader": "<space>",
+  "vim.digraphs": {},
+  "vim.normalmodekeybindings": [
+      {
+          "before": [
+              "<leader>",
+              "<c-r>"
+          ],
+          "commands": [
+              "workbench.action.openrecent",
+          ],
+      },
+      {
+          "before": [
+              "<leader>",
+              "<c-w>"
+          ],
+          "commands": [
+              "workbench.action.closeactiveeditor",
+          ],
+      },
+      {
+          "before": [
+              "<leader>",
+              "<c-b>"
+          ],
+          "commands": [
+              "workbench.action.togglesidebarvisibility",
+          ],
+      },
+      {
+          "before": [
+              "<leader>",
+              "<c-'>"
+          ],
+          "commands": [
+              "workbench.action.toggleauxiliarybar",
+          ],
+      },
+      {
+          "before": [
+              "<leader>",
+              "<c-f>"
+          ],
+          "commands": [
+              "actions.find",
+          ],
+      },
+      {
+          "before": [
+              "<leader>",
+              "f",
+              "f"
+          ],
+          "commands": [
+              "editor.action.formatdocument",
+          ],
+      },
+      {
+          "before": [
+              "<leader>",
+              "f",
+              "i"
+          ],
+          "commands": [
+              "python.sortimports",
+          ],
+      },
+              {
+          "before": [
+              "<leader>",
+              "<c-a>"
+          ],
+          "commands": [
+              "editor.action.selectall"
+          ]
+      },
+      {
+          "before": [
+              "<leader>",
+              "<c-c>"
+          ],
+          "commands": [
+              "editor.action.clipboardcopyaction"
+          ]
+      },
+      // insert mode focus on terminal
+      {
+          "before": [
+              "<c-j>"
+          ],
+          "commands": [
+              "workbench.action.terminal.focus"
+          ]
+      }
+  ],
+  "vim.insertmodekeybindings": [],
+  "vim.insertmodekeybindingsnonrecursive": [
+      {
+          "before": [
+              "j",
+              "k"
+          ],
+          "after": [
+              "<esc>"
+          ]
+      },
+      // insert mode focus on terminal
+      {
+          "before": [
+              "<c-j>"
+          ],
+          "commands": [
+              "workbench.action.terminal.focus"
+          ]
+      }
+  ],
+  "vim.normalmodekeybindingsnonrecursive": [
+
+      {
+          "before": [
+              "j"
+          ],
+          "after": [
+              "5",
+              "j"
+          ]
+      },
+      {
+          "before": [
+              "k"
+          ],
+          "after": [
+              "5",
+              "k"
+          ]
+      },
+      {
+          "before": [
+              "<leader>",
+              "j"
+          ],
+          "after": [
+              "j"
+          ]
+      },
+              {
+          "before": [
+              "<leader>",
+              "t",
+              "n"
+          ],
+          "commands": [
+              ":tabnext"
+          ]
+      },
+      {
+          "before": [
+              "<leader>",
+              "t",
+              "p"
+          ],
+          "commands": [
+              ":tabprev"
+          ]
+      },
+  ],
 }

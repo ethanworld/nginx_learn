@@ -16,12 +16,12 @@ modules:
 	$(MAKE) -f objs/Makefile modules
 
 upgrade:
-	/home/ubuntu/learning/nginx-1.24.0/sbin/nginx -t
+	/home/learning/nginx_learn/sbin/nginx -t
 
-	kill -USR2 `cat /home/ubuntu/learning/nginx-1.24.0/logs/nginx.pid`
+	kill -USR2 `cat /home/learning/nginx_learn/logs/nginx.pid`
 	sleep 1
-	test -f /home/ubuntu/learning/nginx-1.24.0/logs/nginx.pid.oldbin
+	test -f /home/learning/nginx_learn/logs/nginx.pid.oldbin
 
-	kill -QUIT `cat /home/ubuntu/learning/nginx-1.24.0/logs/nginx.pid.oldbin`
+	kill -QUIT `cat /home/learning/nginx_learn/logs/nginx.pid.oldbin`
 
 .PHONY:	build install modules upgrade
