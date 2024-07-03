@@ -1,22 +1,29 @@
 {
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
-    {
-      "name": "(gdb) 远程调试ubuntu",
-      "type": "cppdbg",
-      "request": "launch",
-      "program": "${workspaceFolder}/objs/nginx",
-      "args": [],
-      "stopAtEntry": true,
-      "cwd": "${workspaceFolder}",
-      "linux": {
-        "MIMode": "gdb",
-        "miDebuggerPath": "/usr/bin/gdb",
-        "miDebuggerServerAddress": "127.0.0.1:2333"
+      {
+          "name": "cpp Local Attach",
+          "type": "cppdbg",
+          "request": "attach",
+          "processId":"${command:pickProcess}",
+          "program": "${workspaceFolder}/objs/nginx",
+          "MIMode": "gdb",
+          "logging": {
+              "engineLogging": true,
+              "traceResponse": true
+          },
+          // "stopAtEntry":true,
+          "sourceFileMap": {
+              "/home/learning/nginx_learn/src": "/home/learning/nginx_learn/src"
+          },
+          "setupCommands": [{
+              "description": "Enable pretty-printing for gdb",
+              "text": "-enable-pretty-printing",
+              "ignoreFailures": true
+          }],
       },
-      "environment": [],
-      "externalConsole": true,
-      "MIMode": "gdb"
-    },
   ]
 }

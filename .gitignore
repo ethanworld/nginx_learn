@@ -4,6 +4,7 @@ uwsgi_temp/
 client_body_temp/
 fastcgi_temp/
 objs/
-logs/
+logs/*
+
 
 
